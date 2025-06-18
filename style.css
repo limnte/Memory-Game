@@ -1,0 +1,159 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: #4c7273;
+}
+
+.wrapper {
+    box-sizing: content-box;
+    width: 26.87em;
+    padding: 2.5em 3em;
+    background-color: #d0d6d6;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 0.6em;
+    box-shadow: 0 0.9em 2.8em #041421;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 0.5s ease-in-out;
+    pointer-events: none;
+}
+
+.wrapper.visible{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.game-container{
+    position:relative;
+    width: 100%;
+    display: grid;
+    gap:0.5em;
+    perspective: 1000px;;
+}
+
+.stats-container{
+    text-align: center;
+    margin-bottom: 1.2em;
+}
+
+.stats-container span{
+    font-weight: 600;
+}
+
+.card-container{
+    position: relative;
+    width: 6.25em;
+    height: 6.25em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.card-container:not(.flipped):hover{
+    transform: translateY(-5px);
+}
+
+.card-costas,.card-frente{
+    position: absolute;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #042630;
+    transition: transform 0.7s ease-out;
+    backface-visibility: hidden;
+}
+
+
+.card-costas{
+    background-color: #4c7273;
+    background-image: linear-gradient(#4c7273ab, #4c727318),url("https://i.pinimg.com/736x/8b/56/89/8b5689ecdc905998bf768728f861e3d2.jpg");
+    background-size: cover;
+    background-position: center;
+    font-size: 2.8em;
+    font-weight: 600;
+}
+
+
+
+.card-frente{
+    transform: rotateY(180deg);
+}
+
+.card-container.flipped .card-costas{
+    transform: rotateY(180deg);
+}
+
+.card-container.flipped .card-frente{
+    transform: rotateY(0deg);
+}
+
+.controle-container{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #4c7273;
+    top: 0;
+
+}
+
+
+
+button{
+    border: none;
+    border-radius: 0.4rem;
+    padding: 1em 1.5em;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    
+}
+
+button:hover{
+    transform: scale(1.05);
+    background-color: #042630;
+    color: #ffff;
+}
+
+#pausar{
+    font-size: 1.1rem;
+    display: block;
+    margin: 1.1em auto 0 auto;
+    background-color: #042630;
+    color: #ffff;
+}
+
+.controle-container button{
+    font-size: 1.5rem;
+    box-shadow: 0 0.2em 1.5em #041421a2;
+}
+
+.hide{
+    display: none;
+}
+
+#resultado{
+    text-align: center;
+}
+
+#resultado h2{
+    font-size: 2.5em;
+}   
+
+#resultado h4{
+    font-size: 1.8em;
+    margin: 0.6em 0 1em 0;
+}
+
