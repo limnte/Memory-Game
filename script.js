@@ -14,10 +14,66 @@ clickSound.volume = 0.1;
 const winSound = document.getElementById("win");
 winSound.volume = 0.1;
 
+const musicaFundo = document.getElementById("musicaFundo");
+const btnVolume = document.getElementById("btnVolume");
+const btnPausar = document.getElementById("btnPausar");
+const volumeSlider = document.getElementById("volumeSlider");
+const volumeContainer = document.querySelector(".volume-controls");
+const todosAudios = document.querySelectorAll("audio");
+let musicaPausada = false;
+
 let cards = [];
 let interval;
 let primeiroCard = false;
 let segundoCard = false;
+
+atualizarCorSlider(volumeSlider);
+
+
+// A cor do slider muda de acordo com o volume
+const volumeMaximo = 0.2; // Define limite máximo de volume
+const volumeInicial = parseFloat(volumeSlider.value) * volumeMaximo;
+todosAudios.forEach(audio => {
+    audio.volume = volumeInicial;
+});
+
+
+function atualizarCorSlider(slider) {
+    const maxVolume = parseFloat(slider.max);
+    const value = parseFloat(slider.value);
+    const percent = (value / maxVolume) * 100;
+
+    slider.style.background = `linear-gradient(to right, #d0d6d6 ${percent}%, #0a3a3a ${percent}%)`;
+}
+
+btnVolume.addEventListener("click", () => {
+    volumeContainer.classList.toggle("show-slider");
+});
+
+volumeSlider.addEventListener("input", () => {
+    atualizarCorSlider(volumeSlider);
+
+    const volumeUsuario = parseFloat(volumeSlider.value);
+    const volumeReal = volumeUsuario * volumeMaximo;
+
+    todosAudios.forEach(audio => {
+        audio.volume = volumeReal;
+    });
+});
+
+
+btnPausar.addEventListener("click", () => {
+    if(musicaFundo.paused) {
+        musicaFundo.play();
+        btnPausar.innerHTML = "<i class='bx bx-pause'></i>"
+        musicaPausada = false;
+    } else{
+        musicaFundo.pause();
+        btnPausar.innerHTML = "<i class='bx bx-play'></i>";
+        musicaPausada = true;
+    }
+});
+
 
 //Array
 const itens = [
@@ -50,7 +106,7 @@ const timeGenerator = () => {
     //formato tempo
     let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
     let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
-    tempoValor.innerHTML = `<span>Time:</span>${minutesValue}:${secondsValue}`;
+    tempoValor.innerHTML = `<span>Tempo:</span>${minutesValue}:${secondsValue}`;
 };
 
 //Movimentos
@@ -103,7 +159,7 @@ const matrixGenerator = (cardValues, size = 4) => {
         card.addEventListener("click", () => {
             //verificar cards
 
-            if(!card.classList.contains("matched")){
+            if(!card.classList.contains("matched") && !card.classList.contains("flipped")){
                 //girar card
                 card.classList.add("flipped");
                 flipSound.currentTime = 0;
@@ -157,8 +213,18 @@ const matrixGenerator = (cardValues, size = 4) => {
 startButton.addEventListener("click", () => {
     clickSound.currentTime = 0;
     clickSound.play();
+
+    const volumeUsuario = parseFloat(volumeSlider.value);
+    musicaFundo.volume = volumeUsuario * volumeMaximo;
+    musicaFundo.play();
+
+    btnPausar.innerHTML = "<i class='bx bx-pause'></i>"
+    musicaPausada = false;
+
+
     movimentosContagem = 0;
     tempo = 0;
+    timeGenerator();
     document.querySelector(".wrapper").classList.add("visible")
     //controle e botoes visiveis
     controls.classList.add("hide");
@@ -175,7 +241,7 @@ startButton.addEventListener("click", () => {
 stopButton.addEventListener("click", (stopGame = () =>{
     clickSound.currentTime = 0;
     clickSound.play();
-    
+
     wrapper.classList.remove("visible");
     
     setTimeout(() => {
@@ -186,7 +252,7 @@ stopButton.addEventListener("click", (stopGame = () =>{
     clearInterval(interval);
     seconds= 0;
     minutes = 0;
-    tempoValor.innerHTML = `<span>Time:</span>00:00`;
+    tempoValor.innerHTML = `<span>Tempo:</span>00:00`;
 }));
 
 //iniciar valores
