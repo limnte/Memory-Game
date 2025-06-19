@@ -65,8 +65,8 @@ body{
 #volumeSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   background: #ffffff;
   border: 2px solid #0a3a3a;
   border-radius: 50%;
@@ -81,8 +81,8 @@ body{
 
 /* Firefox */
 #volumeSlider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   background: #ffffff;
   border: 2px solid #0a3a3a;
   border-radius: 50%;
@@ -111,7 +111,8 @@ body{
     box-sizing: content-box;
     width: 90%;
     max-width: 26.87em;
-    padding: 2em 1.5em;
+    padding: 2rem;
+    margin: 0;
     background-color: #d0d6d6;
     position: absolute;
     transform: translate(-50%, -50%);
@@ -259,11 +260,13 @@ body{
 
 @media (max-width: 600px) {
     .wrapper {
-        padding: 1.5em 1em;
+        padding: 2.5rem;
+        width: 70%;
+        top: 60%;
     }
 
     .card-container {
-        width: 4.5em;
+        width: 100%;
         height: 4.5em;
     }
 
