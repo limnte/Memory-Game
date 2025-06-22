@@ -13,5 +13,5 @@
 <br>
 
 <h2>🚀Instruções</h2>
-<p>Você pode testa-lo clicando no link: <a href = https://limnte.github.io/Memory-Game/ target="_blank" rel="nofollow">Memory Game</a></p>
+<p>Você pode testa-lo clicando no link: <a href = "https://limnte.github.io/Memory-Game/" target="_blank" rel="nofollow">Memory Game</a></p>
 
